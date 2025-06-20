@@ -1,0 +1,57 @@
+ #######if you want to test it from cli then use  belwo one##################
+kind: LDAPSyncConfig
+apiVersion: v1
+url: ldaps://idm.ocp4.example.com
+insecure: false
+ca: /tmp/ca.crt
+bindDN: "uid=admin,cn=users,cn=accounts,dc=ocp4,dc=example,dc=com"
+bindPassword: 'admin@123'
+  #  file: "/tmp/bindPassword"
+rfc2307:
+  groupsQuery:
+    baseDN: "cn=groups,cn=accounts,dc=ocp4,dc=example,dc=com"
+    scope: sub
+    derefAliases: never
+    filter: (objectClass=groupOfNames)
+    pageSize: 0
+  groupUIDAttribute: dn
+  groupNameAttributes: [ cn ]
+  groupMembershipAttributes: [ member ]
+  usersQuery:
+    baseDN: "cn=users,cn=accounts,dc=ocp4,dc=example,dc=com"
+    scope: sub
+    derefAliases: never
+      #    filter: (objectClass=inetOrgPerson)
+    pageSize: 0
+  userUIDAttribute: dn
+  userNameAttributes: [ uid ]
+
+
+################## use below one if you want   sync the ldaps groups with ocp using  cronjob of ocp################
+
+kind: LDAPSyncConfig
+apiVersion: v1
+url: ldaps://idm.ocp4.example.com
+bindPassword:
+   file: /etc/secrets/bindPassword
+ca: /etc/config/ca.crt
+insecure: false
+bindDN: "uid=admin,cn=users,cn=accounts,dc=ocp4,dc=example,dc=com"
+rfc2307:
+  groupsQuery:
+    baseDN: "cn=groups,cn=accounts,dc=ocp4,dc=example,dc=com"
+    scope: sub
+    derefAliases: never
+    filter: (objectClass=groupOfNames)
+    pageSize: 0
+  groupUIDAttribute: dn
+  groupNameAttributes: [ cn ]
+  groupMembershipAttributes: [ member ]
+  usersQuery:
+    baseDN: "cn=users,cn=accounts,dc=ocp4,dc=example,dc=com"
+    scope: sub
+    derefAliases: never
+      #    filter: (objectClass=inetOrgPerson)
+    pageSize: 0
+  userUIDAttribute: dn
+  userNameAttributes: [ uid ]
