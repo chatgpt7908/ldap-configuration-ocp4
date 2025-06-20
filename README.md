@@ -1,1 +1,1 @@
-# ldap-configuration-ocp4
+ldaps group sync with     ocp4 cluster
